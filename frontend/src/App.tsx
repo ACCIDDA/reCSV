@@ -17,16 +17,13 @@ function App() {
   const [customMetadata, setCustomMetadata] = useState<string>('');
 
   const handleFileLoaded = useCallback(async (file: File) => {
-    const isInitialLoad = csvParser.handleFileLoaded(file);
-    if (isInitialLoad && csvParser.inputData) {
-      conversation.reset();
-      transformation.reset();
-      setTimeout(() => {
-        if (csvParser.inputData) {
-          conversation.triggerAgentGreeting(csvParser.inputData, outputFormat, customMetadata);
-        }
-      }, 500);
-    }
+    conversation.reset();
+    transformation.reset();
+    
+    csvParser.handleFileLoaded(file, (data) => {
+      // This callback is called after CSV parsing completes
+      conversation.triggerAgentGreeting(data, outputFormat, customMetadata);
+    });
   }, [csvParser, conversation, transformation, outputFormat, customMetadata]);
 
   const handleSendMessage = useCallback(async (userMessage: string) => {
@@ -282,7 +279,7 @@ function App() {
                         onChange={(e) => {
                           const newValue = e.target.checked;
                           csvParser.setHasHeaders(newValue);
-                          csvParser.reParseFile();
+                          csvParser.reParseFile(newValue);
                         }}
                         className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                       />

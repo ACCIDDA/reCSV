@@ -8,7 +8,7 @@ export function useCSVParser() {
   const [hasHeaders, setHasHeaders] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const parseCSVFile = useCallback((file: File, useHeaders: boolean, isInitialLoad = false) => {
+  const parseCSVFile = useCallback((file: File, useHeaders: boolean, isInitialLoad = false, onComplete?: (data: CSVData) => void) => {
     Papa.parse(file, {
       header: useHeaders,
       skipEmptyLines: true,
@@ -40,23 +40,26 @@ export function useCSVParser() {
 
         setInputData(csvData);
         setError(null);
+        
+        // Call completion callback if provided
+        if (isInitialLoad && onComplete) {
+          onComplete(csvData);
+        }
       },
       error: (error) => {
         setError(`Failed to parse CSV: ${error.message}`);
       }
     });
-
-    return isInitialLoad;
   }, []);
 
-  const handleFileLoaded = useCallback((file: File) => {
+  const handleFileLoaded = useCallback((file: File, onComplete?: (data: CSVData) => void) => {
     setUploadedFile(file);
-    return parseCSVFile(file, hasHeaders, true);
+    parseCSVFile(file, hasHeaders, true, onComplete);
   }, [hasHeaders, parseCSVFile]);
 
-  const reParseFile = useCallback(() => {
+  const reParseFile = useCallback((useHeaders?: boolean) => {
     if (uploadedFile) {
-      parseCSVFile(uploadedFile, hasHeaders, false);
+      parseCSVFile(uploadedFile, useHeaders ?? hasHeaders, false);
     }
   }, [uploadedFile, hasHeaders, parseCSVFile]);
 

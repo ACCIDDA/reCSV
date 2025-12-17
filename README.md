@@ -6,11 +6,6 @@ AI-powered CSV transformation tool for non-technical users. Chat naturally about
 
 - 🔒 **Privacy-First**: All CSV processing happens in your browser
 - 💬 **Conversational AI**: Just describe what you want in plain English
-- 🔄 **Flexible Transformations**: 
-  - 1:1 row mapping
-  - Row expansion (unpivoting, adjacency→edge list)
-  - Filtering and aggregation
-  - Any combination you need
 - 🔍 **Auto-verification**: AI checks its own output and self-corrects
 - 📱 **PWA**: Install as desktop/mobile app, works offline
 - 🚀 **Fast**: Processes large files efficiently in browser
