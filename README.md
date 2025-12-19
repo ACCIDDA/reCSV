@@ -161,9 +161,9 @@ VITE_MAX_VERIFICATION_ROUNDS=2
 - Includes transformation patterns as examples
 
 **Token Limits** (search for "slice" in codebase):
-- Greeting: 7 columns × 3 rows
-- Chat messages: 7 columns × 3 rows
-- Verification: 10 columns × 10 rows, 4 messages
+- Greeting: 7 columns x 3 rows
+- Chat messages: 7 columns x 3 rows
+- Verification: 10 columns x 10 rows, 4 messages
 - Custom metadata: 2000 chars max
 
 **Conversation Management:**
@@ -234,34 +234,16 @@ They can only:
 
 ## Troubleshooting
 
-**Backend won't start:**
-- Check Node.js version (18+)
-- Verify `.env` file exists with valid API key
-
-**Frontend compilation errors:**
-- Delete `node_modules` and reinstall: `rm -rf node_modules && npm install`
-- Clear build cache: `rm -rf dist`
-
 **Transformation fails:**
 - Check browser console for errors (look for "Transformation complete" logs)
 - Auto-verification should catch and fix most issues
-- If AI generates wrong pattern, clarify in chat (e.g., "each row should become multiple rows")
-- Verification runs automatically on preview, max 2 correction attempts
+- Verification runs automatically on preview, max 2 correction attempts, but it may still miss something
+- If AI generates wrong pattern, clarify in chat 
 
 **Transform All button missing:**
 - Make sure preview transformation completed successfully first
 - Button appears when code is generated and preview exists
 - Check for errors in browser console
-
-**Wrong number of output rows:**
-- AI might generate wrong transformation pattern
-- Tell AI explicitly: "expand each row" or "filter rows" or "one-to-one mapping"
-- System supports any input→output ratio
-
-**PWA not installing:**
-- Must use HTTPS (or localhost)
-- Check service worker registration in DevTools
-- Verify manifest.json is accessible
 
 ## License
 
